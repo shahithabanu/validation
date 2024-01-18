@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        form {
+            background-color: darkgrey;
+            color: #000;
+            margin: 20vh auto 0 auto;
+            width: 50%;
+            height:300px;
+            padding: 40px;
+            border-radius: 5px;
+        }
+
+    </style>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+   
+
+    <form id="myForm" onsubmit="return validateForm()">
+        <h2>Form Validation Example</h2>
+        <!-- Text Box -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span id="nameError" class="error"></span><br><br>
+
+        <!-- Radio Buttons -->
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male"> Male
+        <input type="radio" id="female" name="gender" value="female"> Female
+        <span id="genderError" class="error"></span><br><br>
+
+        <!-- Checkboxes -->
+        <label>Languages:</label>
+        <input type="checkbox" id="english" name="languages" value="english"> English
+        <input type="checkbox" id="spanish" name="languages" value="spanish"> Spanish
+        <span id="languagesError" class="error"></span><br><br>
+
+        <!-- Select Box -->
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="">Select a country</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+        </select>
+        <span id="countryError" class="error"></span><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            // Reset errors
+            clearErrors();
+
+            // Validate text box
+            var name = document.getElementById('name').value;
+            if (name === "") {
+                document.getElementById('nameError').innerText = "Name is required";
+            }
+
+            // Validate radio buttons
+            var gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').innerText = "Please select a gender";
+            }
+
+            // Validate checkboxes
+            var languages = document.querySelectorAll('input[name="languages"]:checked');
+            if (languages.length === 0) {
+                document.getElementById('languagesError').innerText = "Please select at least one language";
+            }
+
+            // Validate select box
+            var country = document.getElementById('country').value;
+            if (country === "") {
+                document.getElementById('countryError').innerText = "Please select a country";
+            }
+
+            // Display a general error message if any field is empty
+            if (name === "" || !gender || languages.length === 0 || country === "") {
+                return false;
+            }
+
+            // If all validations pass, the form is submitted
+            alert("Form submitted successfully!");
+            return true;
+        }
+
+        function clearErrors() {
+            // Clear error messages
+            document.getElementById('nameError').innerText = "";
+            document.getElementById('genderError').innerText = "";
+            document.getElementById('languagesError').innerText = "";
+            document.getElementById('countryError').innerText = "";
+        }
+    </script>
+
+</body>
+</html>
